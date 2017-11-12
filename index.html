@@ -1,64 +1,13 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <meta charset="utf-8">
+<head>
 
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    
-    <link rel="stylesheet" href="css/app.css">
-    <script src = "js/app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>
+<title>Splashy splish</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.0/pixi.js"></script>
+  <script src="js/main.js"></script>
 
-  </head>
-  <body>
-    <div class="mainDiv" align="right">
-      <h1 id = "fireHeading" align="right">Splash High Scores</h1>
-      <textarea id = "playerName" placeholder="Name"></textarea>
-      <textarea id = "highScore" placeholder="High Score"></textarea>
-      <button id = "submitBtn" onclick = "submitClick()"></button>   
-    </div>
-
-    <div id="game-over-overlay">
-    </div>
-    
-    <div id="game-over">
-      <h1>GAME OVER</h1>
-      <button id="play-again">Play Again</button>
-    </div>
-
-    <div class="wrapper">
-      <div id="instructions">
-        <div>
-          move with <span class="key">arrows</span> or <span class="key">wasd</span>
-        </div>
-        <div>
-          shoot with <span class="key">space</span>
-        </div>
-      </div>
-
-      <div id="score"></div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyB3Q1YZtK7IJwJ-sMgJ_pRi-jZEdbxrM8s",
-        authDomain: "splash-7b45f.firebaseapp.com",
-        databaseURL: "https://splash-7b45f.firebaseio.com",
-        projectId: "splash-7b45f",
-        storageBucket: "splash-7b45f.appspot.com",
-        messagingSenderId: "54087701600"
-      };
-      firebase.initializeApp(config);
-    </script>
-
-    <script type="text/javascript" src="js/resources.js"></script>
-    <script type="text/javascript" src="js/input.js"></script>
-    <script type="text/javascript" src="js/sprite.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-  </body>
+</body>
 </html>
