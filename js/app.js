@@ -2,12 +2,15 @@
 // See https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
 //
 //
-var mainText = document.getElementById("mainText");
+var playerName = document.getElementById("playerName");
 var submitBtn = document.getElementById("submitBtn");
+var highScore = document.getElementById("highScore");
 
 function submitClick() {
     var firebaseRef = firebase.database().ref();
-    firebaseRef.child("Text").set("Some Value");
+    var name = playerName.value;
+    var highval = highScore.value;
+    firebaseRef.push(name).set(highval);
 }
 
 var bgDim = 512;
