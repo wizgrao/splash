@@ -11,7 +11,7 @@ var fr = 0; //background frame
 var ctr = 0; //frame counter
 var bgNum = 0;
 var stageNum = 4;
-var backgroundLengths = [6,4,8,1,1,1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,1,1];
+var backgroundLengths = [6,4,8,1,1,1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
                       "img/sg/sb/End.png", "img/sg/sb/End1.png",
                     "img/sg/sb/Start_Screen_2.jpg",
@@ -24,7 +24,11 @@ var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
         "img/sg/l2/Level_2_Pipe_A.png","img/sg/l2/Level_2_Pipe.png",
       "img/sg/l2/Level_2_Avoid.png","img/sg/l2/Level_2_Avoid_A.png",
     "img/sg/l3/Level_3_Underwater.png","img/sg/l3/Level_3_Underwater_A.png",
-    "img/sg/l3/Level_1_Avoid_A1.png", "img/sg/l3/Level_1_Avoid.png"];
+    "img/sg/l3/Level_1_Avoid_A1.png", "img/sg/l3/Level_1_Avoid.png", "img/sg/l1/Level_1_Fact.png", "img/sg/l1/Level_1_P.png", 
+    "img/sg/l1/Level_1_P_A.png", "img/sg/l2/Level_2_Infiltration_1.png","img/sg/l2/Level_2_Infiltration_2.png", 
+    "img/sg/l2/Level_2_Infiltration_3.png", "img/sg/l2/Level_2_Infiltration_4.png","img/sg/l2/Level_2_Infiltration_5.png",
+    "img/sg/l2/Level_2_Infiltration_6.png", "img/sg/l2/Level_2_Infiltration_7.png", "img/sg/l2/Level_2_Infiltration_8.png",
+    "img/sg/l2/Level_2_Infiltration_9.png","img/sg/l2/Level_2_Fact.png", "img/sg/l3/Level_3_Evaporation.png", "img/sg/l3/Level_3_Evaporation_A.png", "img/sg/l3/Untitled_Artwork.png"];
 var enemyURL = ["img/sg/l1/Air1.png", "img/sg/l1/Air2.png", "img/sg/l1/Air3.png",
                 "img/sg/l2/Sewer1.png", "img/sg/l2/Sewer2.png", "img/sg/l2/Sewer3.png",
               "img/sg/l3/Plastic1.png", "img/sg/l3/Plastic2.png", "img/sg/l3/Plastic3.png"];
@@ -167,6 +171,7 @@ function setup(){
 
 
 function stage1(){
+  stage.addChild(splish)
   changeCtr ++;
   bgNum = 0;
   splish.y = 0;
@@ -233,6 +238,7 @@ function stage1(){
   }
 }
 function stage2(){
+      stage.addChild(splish);
   changeCtr ++;
   bgNum = 1;
   if(isUp){
@@ -296,6 +302,7 @@ function stage2(){
   }
 }
 function stage3(){
+      stage.addChild(splish);
   changeCtr ++;
   bgNum = 2;
   if(isUp){
@@ -386,6 +393,15 @@ function startStage(){
     clearButtons();
   }
 }
+function Fact1Stage(){
+
+  bgNum = 21;
+
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 0;
+    clearButtons();
+  }
+}
 function howToPlayStage(){
   bgNum = 7;
   if(frameCtr % 14 >=7){
@@ -418,8 +434,42 @@ function skyAvoid(){
   }
 
   if(isLeft || isRight || isUp || isDown ){
-    stage.addChild(splish);
-    stageNum = 0;
+    stageNum = 13;
+    clearButtons();
+  }
+}
+function condensation(){
+  bgNum = 24;
+    if(frameCtr % 63 >=7)
+      bgNum = 25;
+    if(frameCtr % 63 >=14)
+      bgNum = 26;
+    if(frameCtr % 63 >=21)
+      bgNum = 27;
+    if(frameCtr % 63 >=28)
+      bgNum = 28;
+    if(frameCtr % 63 >=35)
+      bgNum = 29;
+    if(frameCtr % 63 >=42)
+      bgNum = 30;
+    if(frameCtr % 63 >=49)
+      bgNum = 31;
+    if(frameCtr % 63 >=56)
+      bgNum = 32;
+  
+  
+
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 15 ;
+    clearButtons();
+  }
+}
+
+function fact2(){
+  bgNum =33;
+ 
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 1 ;
     clearButtons();
   }
 }
@@ -442,8 +492,8 @@ function sewerAvoid(){
   }
 
   if(isLeft || isRight || isUp || isDown ){
-    stage.addChild(splish);
-    stageNum = 1;
+
+    stageNum = 14;
     clearButtons();
   }
 }
@@ -459,6 +509,41 @@ function waterStage(){
     clearButtons();
   }
 }
+function evaporation(){
+
+  bgNum = 34;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
+
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 17;
+    clearButtons();
+  }
+}
+function fact3(){
+
+  bgNum = 36;
+
+
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 2;
+    clearButtons();
+  }
+}
+function preface1(){
+
+  bgNum = 22;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
+
+  if(isLeft || isRight || isUp || isDown ){
+
+    stageNum = 12;
+    clearButtons();
+  }
+}
 function waterAvoid(){
   bgNum = 19;
   if(frameCtr % 14 >=7){
@@ -466,13 +551,13 @@ function waterAvoid(){
   }
 
   if(isLeft || isRight || isUp || isDown ){
-    stage.addChild(splish);
-    stageNum = 2;
+
+    stageNum = 16;
     clearButtons();
   }
 }
 var stageMethods = [stage1, stage2, stage3, loseStage, startStage,
-  howToPlayStage, skyStage, skyAvoid, sewerStage, sewerAvoid, waterStage, waterAvoid];
+  howToPlayStage, skyStage, skyAvoid, sewerStage, sewerAvoid, waterStage, waterAvoid, Fact1Stage,preface1, condensation, fact2,evaporation, fact3];
 
 
 function updateBackground(){
