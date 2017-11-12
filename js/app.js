@@ -7,6 +7,7 @@ var submitBtn = document.getElementById("submitBtn");
 
 function submitClick() {
     var firebaseRef = firebase.database().ref();
+    firebaseRef.child("Text").set("Some Value");
 }
 
 var bgDim = 512;
