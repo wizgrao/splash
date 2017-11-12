@@ -31,6 +31,19 @@
       <div id="score"></div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    // TODO: Replace with your project's customized code snippet
+    var config = {
+      apiKey: "<API_KEY>",
+      authDomain: "<PROJECT_ID>.firebaseapp.com",
+      databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+      storageBucket: "<BUCKET>.appspot.com",
+      messagingSenderId: "<SENDER_ID>",
+    };
+    firebase.initializeApp(config);
+    </script>
     <script type="text/javascript" src="js/resources.js"></script>
     <script type="text/javascript" src="js/input.js"></script>
     <script type="text/javascript" src="js/sprite.js"></script>
