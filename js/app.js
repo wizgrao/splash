@@ -1,8 +1,13 @@
-
 // A cross-browser requestAnimationFrame
 // See https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
 //
 //
+var mainText = document.getElementById("mainText");
+var submitBtn = document.getElementById("submitBtn");
+
+function submitClick() {
+    var firebaseRef = firebase.database().ref();
+}
 
 var bgDim = 512;
 var bgNum = 6;
@@ -12,13 +17,13 @@ var plasticDim = 128;
 var characterDim = 64;
 var characterNum = 5;
 
-var requestAnimFrame = (function(){
-    return window.requestAnimationFrame       ||
+var requestAnimFrame = (function() {
+    return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame    ||
-        window.oRequestAnimationFrame      ||
-        window.msRequestAnimationFrame     ||
-        function(callback){
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
             window.setTimeout(callback, 1000 / 60);
         };
 })();
@@ -32,6 +37,7 @@ document.body.appendChild(canvas);
 
 // The main game loop
 var lastTime;
+
 function main() {
     var now = Date.now();
     var dt = (now - lastTime) / 1000.0;
@@ -106,12 +112,11 @@ function update(dt) {
 
     // It gets harder over time by adding enemies using this
     // equation: 1-.993^gameTime
-    if(Math.random() < 1 - Math.pow(.993, gameTime)) {
+    if (Math.random() < 1 - Math.pow(.993, gameTime)) {
         enemies.push({
-                lastTime = Date.now();
-pos: [  Math.random() * (canvas.width - 39), canvas.height,
-                ],
-            sprite: new Sprite('img/plastic1.png', [0, 0], [128, 128],6)
+            lastTime: Date.now(),
+            pos: [Math.random() * (canvas.width - 39), canvas.height],
+            sprite: new Sprite('img/plastic1.png', [0, 0], [128, 128], 6)
         });
     }
 
@@ -124,11 +129,11 @@ function handleInput(dt) {
 
 
 
-    if(input.isDown('LEFT') || input.isDown('a')) {
+    if (input.isDown('LEFT') || input.isDown('a')) {
         player.pos[0] -= playerSpeed * dt;
     }
 
-    if(input.isDown('RIGHT') || input.isDown('d')) {
+    if (input.isDown('RIGHT') || input.isDown('d')) {
         player.pos[0] += playerSpeed * dt;
     }
 
@@ -140,11 +145,11 @@ function updateEntities(dt) {
     // Update all the bullets
 
     // Update all the enemies
-    for(var i=0; i<enemies.length; i++) {
+    for (var i = 0; i < enemies.length; i++) {
         enemies[i].pos[0] -= enemySpeed * dt;
 
         // Remove if offscreen
-        if(enemies[i].pos[1] < 0) {
+        if (enemies[i].pos[1] < 0) {
             enemies.splice(i, 1);
             i--;
         }
@@ -158,27 +163,27 @@ function updateEntities(dt) {
 
 function collides(x, y, r, b, x2, y2, r2, b2) {
     return !(r <= x2 || x > r2 ||
-             b <= y2 || y > b2);
+        b <= y2 || y > b2);
 }
 
 function boxCollides(pos, size, pos2, size2) {
     return collides(pos[0], pos[1],
-                    pos[0] + size[0], pos[1] + size[1],
-                    pos2[0], pos2[1],
-                    pos2[0] + size2[0], pos2[1] + size2[1]);
+        pos[0] + size[0], pos[1] + size[1],
+        pos2[0], pos2[1],
+        pos2[0] + size2[0], pos2[1] + size2[1]);
 }
 
 function checkCollisions() {
     checkPlayerBounds();
 
     // Run collision detection for all enemies and bullets
-    for(var i=0; i<enemies.length; i++) {
+    for (var i = 0; i < enemies.length; i++) {
         var pos = enemies[i].pos;
         var size = enemies[i].sprite.size;
 
 
 
-        if(boxCollides(pos, size, player.pos, player.sprite.size)) {
+        if (boxCollides(pos, size, player.pos, player.sprite.size)) {
             gameOver();
         }
     }
@@ -186,17 +191,15 @@ function checkCollisions() {
 
 function checkPlayerBounds() {
     // Check bounds
-    if(player.pos[0] < 0) {
+    if (player.pos[0] < 0) {
         player.pos[0] = 0;
-    }
-    else if(player.pos[0] > canvas.width - player.sprite.size[0]) {
+    } else if (player.pos[0] > canvas.width - player.sprite.size[0]) {
         player.pos[0] = canvas.width - player.sprite.size[0];
     }
 
-    if(player.pos[1] < 0) {
+    if (player.pos[1] < 0) {
         player.pos[1] = 0;
-    }
-    else if(player.pos[1] > canvas.height - player.sprite.size[1]) {
+    } else if (player.pos[1] > canvas.height - player.sprite.size[1]) {
         player.pos[1] = canvas.height - player.sprite.size[1];
     }
 }
@@ -207,7 +210,7 @@ function render() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Render the player if the game isn't over
-    if(!isGameOver) {
+    if (!isGameOver) {
         renderEntity(player);
     }
 
@@ -215,7 +218,7 @@ function render() {
 };
 
 function renderEntities(list) {
-    for(var i=0; i<list.length; i++) {
+    for (var i = 0; i < list.length; i++) {
         renderEntity(list[i]);
     }
 }
