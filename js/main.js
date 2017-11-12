@@ -241,20 +241,20 @@ function stage2(){
     splish.y += splishVel;
   }
 
-  if(splish.x <0){
-    splish.x = 0;
+  if(splish.y <0){
+    splish.y = 0;
   }
-  if(splish.x > 512 - 128){
-    splish.x = 512 - 128;
+  if(splish.y> 512 - 64){
+    splish.y = 512 - 64;
   }
   if(Math.random() < 1.0/60.0){
-    var obsNum = Math.floor(Math.random() * 3);
+    var obsNum = Math.floor(Math.random() * 3)+3;
     enemies.push(new PIXI.Sprite(enemyTextures[obsNum]));
     var ind = enemies.length - 1;
-    enemies[ind].width = 128;
-    enemies[ind].height = 128;
-    enemies[ind].y = Math.random()*(512-128);
-    enemies[ind].x = 512-128;
+    enemies[ind].width = 64;
+    enemies[ind].height = 64;
+    enemies[ind].y = Math.random()*(512-64);
+    enemies[ind].x = 512;
     stage.addChild(enemies[ind]);
   }
 
