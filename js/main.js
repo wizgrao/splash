@@ -27,7 +27,7 @@ var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
     "img/sg/l3/Level_1_Avoid_A1.png", "img/sg/l3/Level_1_Avoid.png", "img/sg/l1/Level_1_Fact.png", "img/sg/l1/Level_1_P.png", 
     "img/sg/l1/Level_1_P_A.png", "img/sg/l2/Level_2_Infiltration_1.png","img/sg/l2/Level_2_Infiltration_2.png", 
     "img/sg/l2/Level_2_Infiltration_3.png", "img/sg/l2/Level_2_Infiltration_4.png","img/sg/l2/Level_2_Infiltration_5.png",
-    "img/sg/l2/Level_2_Infiltration_6.png", "img/sg/l2/Level_2_Infiltration_7.png", "img/sg/l2/Level_2_Infiltration_8.png",
+    "img/sg/l2/Level_2_Infiltration_6.png", "img/sg/l2/Level_2_Infiltration_7 2.png", "img/sg/l2/Level_2_Infiltration_8.png",
     "img/sg/l2/Level_2_Infiltration_9.png","img/sg/l2/Level_2_Fact.png", "img/sg/l3/Level_3_Evaporation.png", "img/sg/l3/Level_3_Evaporation_A.png", "img/sg/l3/Untitled_Artwork.png"];
 var enemyURL = ["img/sg/l1/Air1.png", "img/sg/l1/Air2.png", "img/sg/l1/Air3.png",
                 "img/sg/l2/Sewer1.png", "img/sg/l2/Sewer2.png", "img/sg/l2/Sewer3.png",
