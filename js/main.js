@@ -22,7 +22,7 @@ var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
             "img/sg/l1/Level_1_Sky_A.png",
           "img/sg/l1/Level_1_Avoid.png","img/sg/l1/Level_1_Avoid_A 2.png",
         "img/sg/l2/Level_2_Pipe_A.png","img/sg/l2/Level_2_Pipe.png",
-      "img/sg/l2/Level_2_Avoid_.png","img/sg/l2/Level_2_Avoid_A.png",
+      "img/sg/l2/Level_2_Avoid.png","img/sg/l2/Level_2_Avoid_A.png",
     "img/sg/l3/Level_3_Underwater.png","img/sg/l3/Level_3_Underwater_A.png",
     "img/sg/l3/Level_1_Avoid_A1.png", "img/sg/l3/Level_1_Avoid.png"];
 var enemyURL = ["img/sg/l1/Air1.png", "img/sg/l1/Air2.png", "img/sg/l1/Air3.png",
@@ -157,7 +157,7 @@ function setup(){
     backgroundSprite = new PIXI.Sprite(backgroundTextures[0]);
     stage.addChild(backgroundSprite);
 
-    splish.width = 128;
+    splish.width = 91;
     splish.height = 128;
     console.log(splish);
     renderer.render(stage);
@@ -180,8 +180,8 @@ function stage1(){
   if(splish.x <0){
     splish.x = 0;
   }
-  if(splish.x > 512 - 128){
-    splish.x = 512 - 128;
+  if(splish.x > 512 - splish.width){
+    splish.x = 512 - splish.width;
   }
   if(Math.random() < 1.0/60.0){
     var obsNum = Math.floor(Math.random() * 3);
@@ -242,11 +242,11 @@ function stage2(){
     splish.y += splishVel;
   }
 
-  if(splish.y <0){
-    splish.y = 0;
+  if(splish.y <32){
+    splish.y = 32;
   }
-  if(splish.y> 512 - 128){
-    splish.y = 512 - 128;
+  if(splish.y> 512 - 128 - 32){
+    splish.y = 512 - 128 - 32;
   }
   if(Math.random() < 1.0/60.0){
     var obsNum = Math.floor(Math.random() * 3)+3;
@@ -254,7 +254,7 @@ function stage2(){
     var ind = enemies.length - 1;
     enemies[ind].width = 64;
     enemies[ind].height = 64;
-    enemies[ind].y = Math.random()*(512-64);
+    enemies[ind].y = Math.random()*(512-128) + 32;
     enemies[ind].x = 512;
     stage.addChild(enemies[ind]);
   }
@@ -272,7 +272,7 @@ function stage2(){
         return;
       }
     }
-    if(enemies[i].x < -128){
+    if(enemies[i].x < - enemies.width){
       stage.removeChild(enemies[i]);
       enemies.splice(i,1);
       i--;
@@ -335,7 +335,7 @@ function stage3(){
         return;
       }
     }
-    if(enemies[i].x < -128){
+    if(enemies[i].x < -enemies.width){
       stage.removeChild(enemies[i]);
       enemies.splice(i,1);
       i--;
