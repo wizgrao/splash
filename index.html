@@ -6,13 +6,24 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-
+    
     <link rel="stylesheet" href="css/app.css">
+    <script src = "js/app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>
+
   </head>
   <body>
-    <div id="game-over-overlay">
+    <div class="mainDiv" align="right">
+      <h1 id = "fireHeading" align="right">Splash High Scores</h1>
+      <textarea id = "playerName" placeholder="Name"></textarea>
+      <textarea id = "highScore" placeholder="High Score"></textarea>
+      <button id = "submitBtn" onclick = "submitClick()"></button>   
     </div>
 
+    <div id="game-over-overlay">
+    </div>
+    
     <div id="game-over">
       <h1>GAME OVER</h1>
       <button id="play-again">Play Again</button>
@@ -44,6 +55,7 @@
       };
       firebase.initializeApp(config);
     </script>
+
     <script type="text/javascript" src="js/resources.js"></script>
     <script type="text/javascript" src="js/input.js"></script>
     <script type="text/javascript" src="js/sprite.js"></script>
