@@ -16,7 +16,7 @@ var requestAnimFrame = (function(){
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 512;
-canvas.height = 480;
+canvas.height = 512;
 document.body.appendChild(canvas);
 
 // The main game loop
@@ -45,8 +45,17 @@ function init() {
 }
 
 resources.load([
-    'img/sprites.png',
-    'img/terrain.png'
+    'img/bg1.png',
+    'img/bg2.png',
+    'img/bg3.png',
+    'img/bg4.png',
+    'img/bg5.png',
+    'img/bg6.png',
+    'img/plastic1.png',
+    'img/plastic2.png',
+    'img/plastic3.png',
+    'img/bloop1.png',
+    'img/bloop2.png',
 ]);
 resources.onReady(init);
 
@@ -84,7 +93,8 @@ function update(dt) {
     // equation: 1-.993^gameTime
     if(Math.random() < 1 - Math.pow(.993, gameTime)) {
         enemies.push({
-            pos: [canvas.width,
+                lastTime = Date.now();
+pos: [canvas.width,
                   Math.random() * (canvas.height - 39)],
             sprite: new Sprite('img/sprites.png', [0, 78], [80, 39],
                                6, [0, 1, 2, 3, 2, 1])
@@ -196,7 +206,7 @@ function boxCollides(pos, size, pos2, size2) {
 
 function checkCollisions() {
     checkPlayerBounds();
-    
+
     // Run collision detection for all enemies and bullets
     for(var i=0; i<enemies.length; i++) {
         var pos = enemies[i].pos;
@@ -273,7 +283,7 @@ function render() {
 function renderEntities(list) {
     for(var i=0; i<list.length; i++) {
         renderEntity(list[i]);
-    }    
+    }
 }
 
 function renderEntity(entity) {
