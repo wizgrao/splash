@@ -11,7 +11,7 @@ var fr = 0; //background frame
 var ctr = 0; //frame counter
 var bgNum = 0;
 var stageNum = 4;
-var backgroundLengths = [6,4,8,1,1,1, 1, 1, 1, 1, 1, 1, 1];
+var backgroundLengths = [6,4,8,1,1,1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,1,1];
 var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
                       "img/sg/sb/End.png", "img/sg/sb/End1.png",
                     "img/sg/sb/Start_Screen_2.jpg",
@@ -20,7 +20,11 @@ var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
                 "img/sg/sb/How_To_Play_Description_A.png",
               "img/sg/l1/Level_1_Sky.png",
             "img/sg/l1/Level_1_Sky_A.png",
-          "img/sg/l1/Level_1_Avoid.png","img/sg/l1/Level_1_Avoid_A 2.png"];
+          "img/sg/l1/Level_1_Avoid.png","img/sg/l1/Level_1_Avoid_A 2.png",
+        "img/sg/l2/Level_2_Pipe_A.png","img/sg/l2/Level_2_Pipe.png",
+      "img/sg/l2/Level_2_Avoid_.png","img/sg/l2/Level_2_Avoid_A.png",
+    "img/sg/l3/Level_3_Underwater.png","img/sg/l3/Level_3_Underwater_A.png",
+    "img/sg/l3/Level_1_Avoid_A1.png", "img/sg/l3/Level_1_Avoid.png"];
 var enemyURL = ["img/sg/l1/Air1.png", "img/sg/l1/Air2.png", "img/sg/l1/Air3.png",
                 "img/sg/l2/Sewer1.png", "img/sg/l2/Sewer2.png", "img/sg/l2/Sewer3.png",
               "img/sg/l3/Plastic1.png", "img/sg/l3/Plastic2.png", "img/sg/l3/Plastic3.png"];
@@ -47,14 +51,6 @@ var enemyTextures = [];
 
 var screen;
 
-var level1ScreenTextures = [];
-var level1AvoidTextures = [];
-
-var level2ScreenTextures = [];
-var level2AvoidTextures = [];
-
-var level3ScreenTextures = [];
-var level3AvoidTextures = [];
 
 
 var splishVel = 5;
@@ -205,6 +201,7 @@ function stage1(){
       enemies.splice(i,1);
       i--;
       if(health >= splishTextures.length -1){
+        splish.texture = splishTextures[health];
         lose();
         return;
       }
@@ -219,13 +216,15 @@ function stage1(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*10){
+  if(changeCtr >=60*5){
     changeCtr = 0;
     splish.x = 0;
     splish.y = 512/2 - 128/2;
-    stageNum = 1;
+    stageNum = 8;
+    stage.removeChild(splish);
     for(var i = 0; i < enemies.length; i ++){
       stage.removeChild(enemies[i]);
+
       enemies.splice(i,1);
       i--;
     }
@@ -266,6 +265,7 @@ function stage2(){
       enemies.splice(i,1);
       i--;
       if(health >= splishTextures.length -1){
+        splish.texture = splishTextures[health];
         lose();
         return;
       }
@@ -280,11 +280,13 @@ function stage2(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*60){
+  if(changeCtr >=60*5){
     changeCtr = 0;
-    stageNum = 2;
+    stageNum = 10;
+    stage.removeChild(splish);
     for(var i = 0; i < enemies.length; i ++){
       stage.removeChild(enemies[i]);
+
       enemies.splice(i,1);
       i--;
     }
@@ -293,9 +295,62 @@ function stage2(){
 function stage3(){
   changeCtr ++;
   bgNum = 2;
+  if(isUp){
+    splish.y -= splishVel;
+  }
+  if(isDown){
+    splish.y += splishVel;
+  }
+
+  if(splish.y <0){
+    splish.y = 0;
+  }
+  if(splish.y> 512 - 64){
+    splish.y = 512 - 64;
+  }
+  if(Math.random() < 1.0/60.0){
+    var obsNum = Math.floor(Math.random() * 3)+6;
+    enemies.push(new PIXI.Sprite(enemyTextures[obsNum]));
+    var ind = enemies.length - 1;
+    enemies[ind].width = 64;
+    enemies[ind].height = 64;
+    enemies[ind].y = Math.random()*(512-64);
+    enemies[ind].x = 512;
+    stage.addChild(enemies[ind]);
+  }
+
+  for(var i = 0; i < enemies.length; i ++){
+    enemies[i].x -= enemyVel;
+    if(hitTestRectangle(enemies[i],splish)){
+      health +=1;
+      stage.removeChild(enemies[i]);
+      enemies.splice(i,1);
+      i--;
+      if(health >= splishTextures.length -1){
+        splish.texture = splishTextures[health];
+        lose();
+        return;
+      }
+    }
+    if(enemies[i].x < -128){
+      stage.removeChild(enemies[i]);
+      enemies.splice(i,1);
+      i--;
+    }
+
+
+  }
+  splish.texture = splishTextures[health];
+
   if(changeCtr >=60*5){
+    stage.removeChild(splish)
     changeCtr = 0;
-    stageNum = 0;
+    stageNum = 6;
+    for(var i = 0; i < enemies.length; i ++){
+      stage.removeChild(enemies[i]);
+      enemies.splice(i,1);
+      i--;
+    }
   }
 }
 function loseStage(){
@@ -359,9 +414,54 @@ function skyAvoid(){
     clearButtons();
   }
 }
+function sewerStage(){
+  bgNum = 13;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
 
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 9;
+    clearButtons();
+  }
+}
+function sewerAvoid(){
+  bgNum = 15;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
+
+  if(isLeft || isRight || isUp || isDown ){
+    stage.addChild(splish);
+    stageNum = 1;
+    clearButtons();
+  }
+}
+function waterStage(){
+  bgNum = 17;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
+
+  if(isLeft || isRight || isUp || isDown ){
+    stageNum = 11;
+    clearButtons();
+  }
+}
+function waterAvoid(){
+  bgNum = 19;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
+
+  if(isLeft || isRight || isUp || isDown ){
+    stage.addChild(splish);
+    stageNum = 2;
+    clearButtons();
+  }
+}
 var stageMethods = [stage1, stage2, stage3, loseStage, startStage,
-  howToPlayStage, skyStage, skyAvoid];
+  howToPlayStage, skyStage, skyAvoid, sewerStage, sewerAvoid, waterStage, waterAvoid];
 
 
 function updateBackground(){
