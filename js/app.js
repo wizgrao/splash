@@ -2,15 +2,29 @@
 // See https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
 //
 //
+
 var playerName = document.getElementById("playerName");
 var submitBtn = document.getElementById("submitBtn");
 var highScore = document.getElementById("highScore");
+var fireHeading = document.getElementById("fireHeading");
+
+var firebaseHeadingRef = firebase.database().ref().child("Heading");
+
+firebaseHeadingRef.on('value', function(datasnapshot){
+    fireHeading.innerText = datasnapshot.val();
+});
+
+var rootRef = firebase.database().ref().child("Players");
+
+rootRef.on("child_added", snap => {
+    alert(snap.val());
+});
 
 function submitClick() {
     var firebaseRef = firebase.database().ref();
     var name = playerName.value;
     var highval = highScore.value;
-    firebaseRef.push(name).set(highval);
+    firebaseRef.child(name).set(highval);
 }
 
 var bgDim = 512;
