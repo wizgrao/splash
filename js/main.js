@@ -245,8 +245,8 @@ function stage2(){
   if(splish.y <0){
     splish.y = 0;
   }
-  if(splish.y> 512 - 64){
-    splish.y = 512 - 64;
+  if(splish.y> 512 - 128){
+    splish.y = 512 - 128;
   }
   if(Math.random() < 1.0/60.0){
     var obsNum = Math.floor(Math.random() * 3)+3;
@@ -308,8 +308,8 @@ function stage3(){
   if(splish.y <0){
     splish.y = 0;
   }
-  if(splish.y> 512 - 64){
-    splish.y = 512 - 64;
+  if(splish.y> 512 - 128){
+    splish.y = 512 - 128;
   }
   if(Math.random() < 1.0/60.0){
     var obsNum = Math.floor(Math.random() * 3)+6;
