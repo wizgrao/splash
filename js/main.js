@@ -169,6 +169,7 @@ function setup(){
 function stage1(){
   changeCtr ++;
   bgNum = 0;
+  splish.y = 0;
   if(isLeft){
     splish.x -= splishVel;
   }
@@ -217,6 +218,7 @@ function stage1(){
   splish.texture = splishTextures[health];
 
   if(changeCtr >=60*5){
+    document.getElementById("music").src = "pipe.mp3";
     changeCtr = 0;
     splish.x = 0;
     splish.y = 512/2 - 128/2;
@@ -281,6 +283,7 @@ function stage2(){
   splish.texture = splishTextures[health];
 
   if(changeCtr >=60*5){
+    document.getElementById("music").src = "Music/Water theme.mp3";
     changeCtr = 0;
     stageNum = 10;
     stage.removeChild(splish);
@@ -343,6 +346,7 @@ function stage3(){
   splish.texture = splishTextures[health];
 
   if(changeCtr >=60*5){
+    document.getElementById("music").src = "Music/Sky theme.mp3";
     stage.removeChild(splish)
     changeCtr = 0;
     stageNum = 6;
@@ -363,6 +367,7 @@ function loseStage(){
 function lose(){
   stageNum = 3;
   bgNum = 3;
+  document.getElementById("music").src = "Music/Game Over Screen.mp3"
   for(var i = 0; i < enemies.length; i ++){
     stage.removeChild(enemies[i]);
     enemies.splice(i,1);
@@ -370,6 +375,7 @@ function lose(){
   }
 }
 function startStage(){
+
   bgNum = 5;
   if(frameCtr % 14 >=7){
     bgNum ++;
@@ -388,10 +394,13 @@ function howToPlayStage(){
 
   if(isLeft || isRight || isUp || isDown ){
     stageNum = 6;
+    document.getElementById("music").src = "Music/Sky theme.mp3";
     clearButtons();
   }
 }
 function skyStage(){
+
+
   bgNum = 9;
   if(frameCtr % 14 >=7){
     bgNum ++;
@@ -415,6 +424,7 @@ function skyAvoid(){
   }
 }
 function sewerStage(){
+
   bgNum = 13;
   if(frameCtr % 14 >=7){
     bgNum ++;
@@ -438,6 +448,7 @@ function sewerAvoid(){
   }
 }
 function waterStage(){
+
   bgNum = 17;
   if(frameCtr % 14 >=7){
     bgNum ++;
