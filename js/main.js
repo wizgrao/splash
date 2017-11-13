@@ -1,7 +1,7 @@
 var renderer = PIXI.autoDetectRenderer(512, 512);
 
 document.body.appendChild(renderer.view);
-
+const timePerStage = 15;
 var changeCtr =0;
 var frameCtr = 0;
 var stage = new PIXI.Container();
@@ -222,7 +222,7 @@ function stage1(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*30){
+  if(changeCtr >=60*timePerStage){
     document.getElementById("music").src = "pipe.mp3";
     changeCtr = 0;
     splish.x = 0;
@@ -288,7 +288,7 @@ function stage2(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*30){
+  if(changeCtr >=60*timePerStage){
     document.getElementById("music").src = "Music/Water theme.mp3";
     changeCtr = 0;
     stageNum = 10;
@@ -352,7 +352,7 @@ function stage3(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*30){
+  if(changeCtr >=60*timePerStage){
     document.getElementById("music").src = "Music/Sky theme.mp3";
     stage.removeChild(splish)
     changeCtr = 0;
