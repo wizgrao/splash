@@ -222,7 +222,7 @@ function stage1(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*5){
+  if(changeCtr >=60*30){
     document.getElementById("music").src = "pipe.mp3";
     changeCtr = 0;
     splish.x = 0;
@@ -288,7 +288,7 @@ function stage2(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*5){
+  if(changeCtr >=60*30){
     document.getElementById("music").src = "Music/Water theme.mp3";
     changeCtr = 0;
     stageNum = 10;
@@ -352,7 +352,7 @@ function stage3(){
   }
   splish.texture = splishTextures[health];
 
-  if(changeCtr >=60*5){
+  if(changeCtr >=60*30){
     document.getElementById("music").src = "Music/Sky theme.mp3";
     stage.removeChild(splish)
     changeCtr = 0;
