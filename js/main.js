@@ -32,14 +32,15 @@ var backgroundURL = ["img/level1.jpg", "img/level2.jpg", "img/level3.jpg",
 var enemyURL = ["img/sg/l1/Air1.png", "img/sg/l1/Air2.png", "img/sg/l1/Air3.png",
                 "img/sg/l2/Sewer1.png", "img/sg/l2/Sewer2.png", "img/sg/l2/Sewer3.png",
               "img/sg/l3/Plastic1.png", "img/sg/l3/Plastic2.png", "img/sg/l3/Plastic3.png"];
-
+var buttonURL = ["img/sg/sb/Start_Button.png", "img/sg/sb/How_To_Play_Button 2.png", "img/sg/sb/High_Scores_Button 2.png", "img/sg/sb/Home Button.png"];
+var buttonTextures = [];
 
 var isLeft = false;
 var isRight = false;
 var isUp = false;
 var isDown = false;
 
-var enemies = []
+var enemies = [];
 
 var splish;
 
@@ -141,6 +142,10 @@ enemyURL.forEach(function(element){
   PIXI.loader.add(element)
 });
 
+buttonURL.forEach(function(element) {
+  PIXI.loader.add(element)
+});
+
 PIXI.loader.load(setup);
 
 function setup(){
@@ -153,6 +158,9 @@ function setup(){
     });
     enemyURL.forEach(function(element){
       enemyTextures.push(PIXI.loader.resources[element].texture)
+    });
+    buttonURL.forEach(function(element){
+      buttonTextures.push(PIXI.loader.resources[element].texture)
     });
 
     splish = new PIXI.Sprite(splishTextures[0]);
@@ -169,6 +177,24 @@ function setup(){
     gameLoop();
 }
 
+function addHomeButton() {
+
+  homeSprite = new PIXI.Sprite(PIXI.loader.resources["img/sg/sb/Home Button.png"].texture);
+  homeSprite.anchor.set(0.5);
+  homeSprite.scale.set(.04);
+
+  homeSprite.position.x = 450;
+  homeSprite.position.y = 450;
+
+  homeSprite.interactive = true;
+  homeSprite.buttonMode = true;
+
+  homeSprite.on("click", function() {
+    location.reload();
+  })
+
+  stage.addChild(homeSprite);
+}
 
 function stage1(){
   stage.addChild(splish)
@@ -236,9 +262,12 @@ function stage1(){
       i--;
     }
   }
+
+  addHomeButton();
 }
+
 function stage2(){
-      stage.addChild(splish);
+  stage.addChild(splish);
   changeCtr ++;
   bgNum = 1;
   if(isUp){
@@ -301,8 +330,9 @@ function stage2(){
     }
   }
 }
+
 function stage3(){
-      stage.addChild(splish);
+  stage.addChild(splish);
   changeCtr ++;
   bgNum = 2;
   if(isUp){
@@ -364,6 +394,7 @@ function stage3(){
     }
   }
 }
+
 function loseStage(){
   bgNum = 3;
   if(frameCtr % 14 >=7){
@@ -381,11 +412,133 @@ function lose(){
     i--;
   }
 }
+
+var hasPutMenuBtns = false;
+var hasDisplayedScores = false;
+var mostRecentHiScores = [];
+
 function startStage(){
 
   bgNum = 5;
   if(frameCtr % 14 >=7){
     bgNum ++;
+  }
+
+  var textureStartButton = PIXI.loader.resources["img/sg/sb/Start_Button.png"].texture;
+  var textureHowButton = PIXI.loader.resources["img/sg/sb/How_To_Play_Button 2.png"].texture;
+  var textureHiScoreButton = PIXI.loader.resources["img/sg/sb/High_Scores_Button 2.png"].texture;
+
+  if (!hasPutMenuBtns) {
+    hasPutMenuBtns = true;
+
+    var hiScoreButton = new PIXI.Sprite(textureHiScoreButton);
+
+    hiScoreButton.anchor.set(0.5);
+    hiScoreButton.scale.set(0.12);
+
+    hiScoreButton.position.x = 340;
+    hiScoreButton.position.y = 390;
+
+    hiScoreButton.interactive = true;
+    hiScoreButton.buttonMode = true;
+
+    stage.addChild(hiScoreButton);
+
+    hiScoreButton.on("click", function() {
+      stageNum = 18;
+
+      clearButtons();
+      stage.removeChild(startButton);
+      stage.removeChild(hiScoreButton);
+      stage.removeChild(howButton);
+
+      hasPutMenuBtns = false;
+      hasDisplayedScores = false;
+    })
+
+    hiScoreButton.on("pointerover", function() {
+      console.log("score hovering!!!");
+      hiScoreButton.alpha = .7;
+    });
+
+    hiScoreButton.on("pointerout", function() {
+      console.log("stopped hovering!!!");
+      hiScoreButton.alpha = 1.0;
+    });
+
+    var startButton = new PIXI.Sprite(textureStartButton);
+
+    startButton.anchor.set(0.5);
+    startButton.scale.set(0.1);
+
+    startButton.position.x = 250;
+    startButton.position.y = 300;
+
+    //make the button interactive
+    startButton.interactive = true;
+    startButton.buttonMode = true;
+
+    stage.addChild(startButton);
+
+    startButton.on("click", function () {
+      console.log("click start");
+      stageNum = 7;
+      console.log(stageNum);
+      clearButtons();
+      stage.removeChild(startButton);
+      stage.removeChild(howButton);
+      stage.removeChild(hiScoreButton);
+
+      hasPutMenuBtns = false;
+
+      plsAvoidtheAvoid = true;
+    });
+
+    startButton.on("pointerover", function() {
+      console.log("start hovering!!!");
+      startButton.alpha = .7;
+    });
+
+    startButton.on("pointerout", function() {
+      console.log("stopped hovering!!!");
+      startButton.alpha = 1.0;
+    });
+
+    var howButton = new PIXI.Sprite(textureHowButton);
+    howButton.anchor.set(0.5);
+    howButton.scale.set(0.12);
+
+    howButton.position.x = 180;
+    howButton.position.y = 390;
+
+    //make the button interactive
+    howButton.interactive = true;
+    howButton.buttonMode = true;
+
+    stage.addChild(howButton);
+
+    howButton.on("click", function () {
+      console.log("click how");
+      stageNum = 5;
+      clearButtons();
+      stage.removeChild(startButton);
+      stage.removeChild(howButton);
+      stage.removeChild(hiScoreButton);
+
+      hasPutMenuBtns = false;
+
+      plsAvoidtheAvoid = false;
+    });
+
+    howButton.on("pointerover", function() {
+      console.log("how hovering!!!");
+      howButton.alpha = .7;
+    });
+
+    howButton.on("pointerout", function() {
+      console.log("how not hovering!!!");
+      howButton.alpha = 1.0;
+    });
   }
 
   if(isLeft || isRight || isUp || isDown ){
@@ -426,7 +579,12 @@ function skyStage(){
     stageNum = 7;
     clearButtons();
   }
+
+  addHomeButton();
 }
+
+var plsAvoidtheAvoid = false;
+
 function skyAvoid(){
   bgNum = 11;
   if(frameCtr % 14 >=7){
@@ -438,6 +596,7 @@ function skyAvoid(){
     clearButtons();
   }
 }
+
 function condensation(){
   bgNum = 24;
     if(frameCtr % 63 >=7)
@@ -544,6 +703,7 @@ function preface1(){
     clearButtons();
   }
 }
+
 function waterAvoid(){
   bgNum = 19;
   if(frameCtr % 14 >=7){
@@ -556,8 +716,66 @@ function waterAvoid(){
     clearButtons();
   }
 }
+
+function leaderboardStage() {
+  bgNum = 5;
+  if(frameCtr % 14 >=7){
+    bgNum ++;
+  }
+
+  addHomeButton();
+
+  if (!hasDisplayedScores) {
+
+    getScores = function(score_lst) {
+      stageNum = 18;
+      console.log("leaderboard");
+      console.log(score_lst);
+
+        user_lst = [];
+        value_lst = [];
+        user_str = ""
+        value_str = ""
+
+        let idx = 0
+        score_lst.forEach(function(score) {
+          if (idx++ <= 8) {
+            user_lst.push(score["user"]);
+            value_lst.push(score["value"]);
+
+            user_str += idx + ") " + score["user"]+ '\n';
+            value_str += score["value"] + '\n'
+          }
+        });
+
+      getScores();
+      console.log(user_lst);
+      console.log(value_str);
+
+      var style = {fontFamily: "Comic Sans MS", align: 'left'};
+      let userText = new PIXI.Text(user_str, style);
+      let valText = new PIXI.Text(value_str, style);
+
+      userText.anchor.set(0.5);
+
+      userText.position.x = 170;
+      userText.position.y = 350;
+
+      valText.anchor.set(0.5);
+
+      valText.position.x = 340;
+      valText.position.y = 350;
+
+      stage.addChild(userText);
+      stage.addChild(valText);
+    };
+    hasDisplayedScores = true;
+  }
+
+}
+
 var stageMethods = [stage1, stage2, stage3, loseStage, startStage,
-  howToPlayStage, skyStage, skyAvoid, sewerStage, sewerAvoid, waterStage, waterAvoid, Fact1Stage,preface1, condensation, fact2,evaporation, fact3];
+  howToPlayStage, skyStage, skyAvoid, sewerStage, sewerAvoid, waterStage, waterAvoid, Fact1Stage,preface1, condensation, fact2,evaporation, fact3, leaderboardStage];
 
 
 function updateBackground(){
@@ -610,6 +828,7 @@ function hitTestRectangle(r1, r2) {
   //Return the value of `collision` back to the main program
   return collision;
 }
+
 function clearButtons(){
   isDown = false;
   isUp = false;
